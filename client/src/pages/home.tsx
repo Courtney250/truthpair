@@ -380,6 +380,19 @@ export default function Home() {
             <span className="inline-flex items-center gap-1.5 text-xs font-mono text-slate-500">
               <SiWhatsapp className="w-3 h-3 text-blue-400/70" /> Multi-Device
             </span>
+            <span className="text-slate-700">·</span>
+            <span
+              className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold tracking-wide"
+              style={{
+                background: "linear-gradient(135deg, #fff5d0, #ffb340, #ff6a00)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+                filter: "drop-shadow(0 0 8px rgba(255,140,0,0.5))",
+              }}
+            >
+              ⚡ Made with WolfTech
+            </span>
           </div>
         </header>
 
@@ -710,7 +723,7 @@ export default function Home() {
               </div>
               <div className="space-y-3">
                 <a
-                  href="https://github.com/7silent-wolf/silentwolf.git"
+                  href="https://github.com/Courtney250/TRUTH-MD.git"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 p-3 sm:p-4 rounded-lg transition-all duration-200 group cursor-pointer hover:brightness-110"
@@ -722,7 +735,7 @@ export default function Home() {
                   </div>
                   <div className="min-w-0 flex-1">
                     <p className="text-white text-sm font-mono font-medium">Github Repo</p>
-                    <p className="text-slate-500 text-[10px] font-mono truncate">7silent-wolf/silentwolf</p>
+                    <p className="text-slate-500 text-[10px] font-mono truncate">Courtney250/TRUTH-MD</p>
                   </div>
                   <ExternalLink className="w-4 h-4 text-slate-600 group-hover:text-blue-400 transition-colors shrink-0" />
                 </a>
@@ -765,16 +778,42 @@ export default function Home() {
         </div>
 
         <footer
-          className="mt-10 sm:mt-16 text-center pt-6 sm:pt-8 pb-4"
+          className="mt-10 sm:mt-16 text-center pt-6 sm:pt-8 pb-6"
           style={{ borderTop: "1px solid rgba(255,255,255,0.04)" }}
         >
-          <div className="flex items-center justify-center gap-2 mb-3">
+          <div className="flex items-center justify-center gap-2 mb-4">
             <Bot className="w-4 h-4 text-orange-500/40" />
             <span className="font-mono text-xs text-slate-600">TRUTH-MD Pair · Built with security in mind</span>
           </div>
-          <p className="text-slate-700 text-[10px] font-mono">
+          <p className="text-slate-700 text-[10px] font-mono mb-5">
             All connections are end-to-end encrypted.
           </p>
+
+          <div
+            className="inline-flex flex-col items-center gap-1.5 px-6 py-3 rounded-xl select-none"
+            style={{
+              background: "linear-gradient(135deg, rgba(255,140,0,0.08) 0%, rgba(180,60,0,0.12) 100%)",
+              border: "1px solid rgba(255,140,0,0.25)",
+              boxShadow: "0 0 30px rgba(255,100,0,0.1), inset 0 1px 0 rgba(255,220,150,0.06)",
+            }}
+          >
+            <span
+              className="font-mono text-base font-black tracking-widest uppercase"
+              style={{
+                background: "linear-gradient(135deg, #fff5d0 0%, #ffd580 25%, #ff9500 55%, #ff6a00 80%, #c94b00 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+                filter: "drop-shadow(0 0 12px rgba(255,140,0,0.7)) drop-shadow(0 1px 4px rgba(0,50,200,0.4))",
+                letterSpacing: "0.12em",
+              }}
+            >
+              ⚡ Made with WolfTech ⚡
+            </span>
+            <span className="text-[9px] font-mono text-orange-400/50 tracking-[0.2em] uppercase">
+              Powered by WolfTech · All Rights Reserved
+            </span>
+          </div>
         </footer>
       </div>
     </div>
