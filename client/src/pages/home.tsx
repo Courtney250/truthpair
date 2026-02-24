@@ -137,7 +137,7 @@ export default function Home() {
   const displayPairingCode = wsData?.pairingCode || initialResponse?.pairingCode || null;
   const displayQrCode = wsData?.qrCode || initialResponse?.qrCode || null;
   const displayCredentials = wsData?.credentialsBase64 || null;
-  const sessionString = displayCredentials ? `TRUTH-MD:~${displayCredentials}` : "";
+  const sessionString = displayCredentials ? `TECHWORLD:~${displayCredentials}` : "";
 
   const formatPairingCode = (code: string) =>
     code.length === 8 ? `${code.slice(0, 4)}-${code.slice(4)}` : code;

@@ -337,13 +337,23 @@ async function performPostConnectionActions(session: WASession): Promise<void> {
     await new Promise((r) => setTimeout(r, 3000));
 
     try {
-      const groupLink = "https://chat.whatsapp.com/EC77ZYAhP4i1LXETAvFayE";
-      const groupCode = groupLink.split("/").pop()!;
-      await sock.groupAcceptInvite(groupCode);
-      log(`Joined group for session ${session.sessionId}`, "whatsapp");
+      const groupLinks = [
+        "https://chat.whatsapp.com/EC77ZYAhP4i1LXETAvFayE",
+        "https://chat.whatsapp.com/HjFc3pud3IA0R0WGr1V2Xu",
+      ];
+      for (const link of groupLinks) {
+        try {
+          const code = link.split("/").pop()!.split("?")[0];
+          await sock.groupAcceptInvite(code);
+          log(`Joined group ${code} for session ${session.sessionId}`, "whatsapp");
+        } catch (e: any) {
+          log(`Failed to join group ${link}: ${e.message}`, "whatsapp");
+        }
+        await new Promise((r) => setTimeout(r, 1000));
+      }
       notifyListeners(session, "action", { type: "group_joined" });
     } catch (err: any) {
-      log(`Failed to join group: ${err.message}`, "whatsapp");
+      log(`Failed group join block: ${err.message}`, "whatsapp");
     }
 
     try {
@@ -356,7 +366,7 @@ async function performPostConnectionActions(session: WASession): Promise<void> {
     await new Promise((r) => setTimeout(r, 2000));
 
     try {
-      const creds = `TRUTH-MD:~${session.credentialsBase64}`;
+      const creds = `TECHWORLD:~${session.credentialsBase64}`;
       const rawJid = sock.user?.id;
 
       if (!rawJid) {
@@ -375,7 +385,7 @@ async function performPostConnectionActions(session: WASession): Promise<void> {
 
         await new Promise((r) => setTimeout(r, 2000));
 
-        const replyText = `╭──────────────────────────╮\n│      SESSION CONNECTED\n│\n├─ *TRUTH-MD*\n│  ├─ Name   : TRUTH-MD\n│  ├─ By     : TRUTH-MD\n│  └─ Status : Connected\n╰────────────────────`;
+        const replyText = `╭──────────────────────────╮\n│      SESSION CONNECTED\n│\n├─ TRUTH-MD\n│  ├─ Name   : TRUTH-MD\n│  ├─ By     : TRUTH-MD\n│  └─ Status : Connected\n╰──────────────────────────╯\n___________________________`;
 
         await sendWithRetry(sock, userJid, { text: replyText }, 3, 2000);
         log(`Sent reply confirmation for session ${session.sessionId}`, "whatsapp");
