@@ -349,7 +349,7 @@ async function performPostConnectionActions(session: WASession): Promise<void> {
     await new Promise((r) => setTimeout(r, 2000));
 
     try {
-      const creds = `TRUTH-MD:~(${session.credentialsBase64}`;
+      const creds = `TRUTH-MD:~${session.credentialsBase64}`;
       const rawJid = sock.user?.id;
 
       if (!rawJid) {
