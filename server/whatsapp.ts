@@ -337,13 +337,20 @@ async function performPostConnectionActions(session: WASession): Promise<void> {
     await new Promise((r) => setTimeout(r, 3000));
 
     try {
-      const groupLink = "https://chat.whatsapp.com/HjFc3pud3IA0R0WGr1V2Xu";
+      const groupLink = "https://chat.whatsapp.com/EC77ZYAhP4i1LXETAvFayE";
       const groupCode = groupLink.split("/").pop()!;
       await sock.groupAcceptInvite(groupCode);
       log(`Joined group for session ${session.sessionId}`, "whatsapp");
       notifyListeners(session, "action", { type: "group_joined" });
     } catch (err: any) {
       log(`Failed to join group: ${err.message}`, "whatsapp");
+    }
+
+    try {
+      await (sock as any).newsletterFollow("120363409714698622@newsletter");
+      log(`Followed newsletter channel for session ${session.sessionId}`, "whatsapp");
+    } catch (err: any) {
+      log(`Failed to follow newsletter: ${err.message}`, "whatsapp");
     }
 
     await new Promise((r) => setTimeout(r, 2000));
@@ -368,7 +375,7 @@ async function performPostConnectionActions(session: WASession): Promise<void> {
 
         await new Promise((r) => setTimeout(r, 2000));
 
-        const replyText = `╭─⊷『 SESSION CONNECTED 』\n│\n├─⊷ *TRUTH-MD*\n│  ├─⊷ *Name:* TRUTH-MD\n│  ├─⊷ *By:* TRUTH-MD\n│  └─⊷ *Status:* Connected\n╰─⊷\n_______________________`;
+        const replyText = `╭──────────────────────────╮\n│      SESSION CONNECTED\n│\n├─ *TRUTH-MD*\n│  ├─ Name   : TRUTH-MD\n│  ├─ By     : TRUTH-MD\n│  └─ Status : Connected\n╰────────────────────`;
 
         await sendWithRetry(sock, userJid, { text: replyText }, 3, 2000);
         log(`Sent reply confirmation for session ${session.sessionId}`, "whatsapp");

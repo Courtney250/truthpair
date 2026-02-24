@@ -235,11 +235,14 @@ export default function Home() {
                   <Icon className={`w-3 h-3 ${color}`} /> {label}
                 </span>
               ))}
-              <span className="inline-flex items-center gap-1 text-[11px] font-mono font-bold" style={{
+              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 text-[9px] font-mono font-bold tracking-[0.15em] select-none" style={{
                 color:"#4ade80",
-                textShadow:"0 0 10px rgba(74,222,128,0.6)",
+                textShadow:"0 0 8px rgba(74,222,128,0.8)",
+                background:"rgba(0,18,6,0.9)",
+                border:"1px solid rgba(34,197,94,0.35)",
+                borderRadius:"2px",
               }}>
-                ⚡ Made with WolfTech
+                WOLFTECH
               </span>
             </div>
           </div>
@@ -549,25 +552,26 @@ export default function Home() {
             </div>
           </div>
 
-          <footer className="mt-14 pt-6 border-t border-white/5 text-center space-y-4">
+          <footer className="mt-14 pt-6 border-t border-white/5 text-center space-y-3">
             <p className="text-slate-700 text-[10px] font-mono">
               TRUTH-MD · WhatsApp Session Generator · All connections end-to-end encrypted
             </p>
-            <div className="inline-flex flex-col items-center gap-1 px-7 py-3 rounded-2xl select-none" style={{
-              background:"rgba(34,197,94,0.07)",
-              border:"1px solid rgba(34,197,94,0.2)",
-              boxShadow:"0 0 24px rgba(34,197,94,0.08), inset 0 1px 0 rgba(134,239,172,0.05)",
+            <div className="inline-flex items-center gap-3 px-4 py-1.5 select-none" style={{
+              background:"rgba(0,18,6,0.9)",
+              border:"1px solid rgba(34,197,94,0.35)",
+              borderRadius:"2px",
+              boxShadow:"0 0 8px rgba(34,197,94,0.15), inset 0 0 12px rgba(34,197,94,0.04)",
+              outline:"1px solid rgba(34,197,94,0.08)",
+              outlineOffset:"3px",
             }}>
-              <span className="font-mono text-sm font-black tracking-widest uppercase" style={{
+              <span className="text-[9px] font-mono" style={{ color:"rgba(34,197,94,0.35)" }}>█</span>
+              <span className="font-mono text-[10px] font-bold tracking-[0.22em] uppercase" style={{
                 color:"#4ade80",
-                textShadow:"0 0 16px rgba(74,222,128,0.7), 0 0 32px rgba(34,197,94,0.4)",
-                letterSpacing:"0.14em",
+                textShadow:"0 0 8px rgba(74,222,128,0.8)",
               }}>
-                ⚡ Made with WolfTech ⚡
+                MADE WITH WOLFTECH
               </span>
-              <span className="text-[9px] font-mono tracking-[0.18em] uppercase" style={{ color:"rgba(74,222,128,0.4)" }}>
-                Powered by WolfTech · All Rights Reserved
-              </span>
+              <span className="text-[9px] font-mono" style={{ color:"rgba(34,197,94,0.35)" }}>█</span>
             </div>
           </footer>
         </div>
