@@ -12,7 +12,6 @@ import {
   Shield,
   Zap,
   Terminal,
-  RefreshCw,
   Trash2,
   Hash,
   Smartphone,
@@ -22,6 +21,7 @@ import {
   AlertCircle,
   Loader2,
   Bot,
+  Star,
 } from "lucide-react";
 import { SiWhatsapp, SiGithub } from "react-icons/si";
 
@@ -36,10 +36,10 @@ function GlassCard({
 }) {
   return (
     <div
-      className={`relative backdrop-blur-sm bg-black/30 border border-green-500/20 rounded-xl transition-all duration-300 ${
-        hoverable ? "hover:border-green-500/40 hover:scale-[1.02] group" : ""
+      className={`relative backdrop-blur-sm bg-[#050d1f]/70 border border-blue-500/20 rounded-xl transition-all duration-300 ${
+        hoverable ? "hover:border-blue-400/40 hover:scale-[1.02] group" : ""
       } ${className}`}
-      style={{ boxShadow: "0 0 40px rgba(0, 255, 0, 0.08)" }}
+      style={{ boxShadow: "0 0 40px rgba(56, 130, 246, 0.06), inset 0 1px 0 rgba(255,255,255,0.04)" }}
     >
       {children}
     </div>
@@ -48,9 +48,40 @@ function GlassCard({
 
 function GlowText({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
-    <span className={`text-green-400 ${className}`} style={{ textShadow: "0 0 20px rgba(0, 255, 0, 0.5)" }}>
+    <span
+      className={`${className}`}
+      style={{
+        background: "linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #fb923c 100%)",
+        WebkitBackgroundClip: "text",
+        WebkitTextFillColor: "transparent",
+        backgroundClip: "text",
+        filter: "drop-shadow(0 0 20px rgba(56,189,248,0.4))",
+      }}
+    >
       {children}
     </span>
+  );
+}
+
+function StarField() {
+  return (
+    <div className="fixed inset-0 pointer-events-none overflow-hidden">
+      {Array.from({ length: 80 }).map((_, i) => (
+        <div
+          key={i}
+          className="absolute rounded-full bg-white"
+          style={{
+            width: Math.random() * 2 + 0.5 + "px",
+            height: Math.random() * 2 + 0.5 + "px",
+            left: Math.random() * 100 + "%",
+            top: Math.random() * 100 + "%",
+            opacity: Math.random() * 0.7 + 0.1,
+            animation: `twinkle ${Math.random() * 4 + 2}s ease-in-out infinite`,
+            animationDelay: Math.random() * 4 + "s",
+          }}
+        />
+      ))}
+    </div>
   );
 }
 
@@ -58,14 +89,14 @@ function FeatureCard({ icon: Icon, title, desc }: { icon: React.ElementType; tit
   return (
     <GlassCard hoverable className="p-4 sm:p-5">
       <div className="flex items-start gap-3 sm:gap-4">
-        <div className="p-2.5 rounded-lg bg-green-500/10 border border-green-500/20 shrink-0">
-          <Icon className="w-5 h-5 text-green-400" />
+        <div className="p-2.5 rounded-lg bg-blue-500/10 border border-blue-500/20 shrink-0">
+          <Icon className="w-5 h-5 text-blue-400" />
         </div>
         <div className="min-w-0">
           <h3 className="text-white font-mono text-sm font-semibold mb-1">{title}</h3>
-          <p className="text-gray-500 text-xs leading-relaxed">{desc}</p>
+          <p className="text-slate-500 text-xs leading-relaxed">{desc}</p>
         </div>
-        <ArrowUpRight className="w-4 h-4 text-green-500/40 group-hover:text-green-400 transition-all duration-300 group-hover:rotate-45 shrink-0 mt-1" />
+        <ArrowUpRight className="w-4 h-4 text-violet-400/40 group-hover:text-violet-400 transition-all duration-300 group-hover:rotate-45 shrink-0 mt-1" />
       </div>
     </GlassCard>
   );
@@ -220,48 +251,84 @@ export default function Home() {
     return code;
   };
 
+  const sessionString = displayCredentials ? `TRUTH-MD:~(${displayCredentials}` : "";
+
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden">
+    <div
+      className="min-h-screen text-white relative overflow-hidden"
+      style={{ background: "linear-gradient(135deg, #020818 0%, #050d1f 40%, #0a0520 70%, #03080f 100%)" }}
+    >
+      <style>{`
+        @keyframes twinkle {
+          0%, 100% { opacity: 0.1; }
+          50% { opacity: 0.8; }
+        }
+        @keyframes nebula-drift {
+          0%, 100% { transform: translateY(0px) scale(1); }
+          50% { transform: translateY(-20px) scale(1.05); }
+        }
+        @keyframes orbit {
+          from { transform: rotate(0deg) translateX(120px) rotate(0deg); }
+          to { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
+        }
+      `}</style>
+
+      <StarField />
+
       <div className="fixed inset-0 pointer-events-none">
         <div
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] rounded-full opacity-20"
+          className="absolute top-[-10%] left-1/3 w-[700px] h-[700px] rounded-full"
           style={{
-            background: "radial-gradient(ellipse, rgba(0,255,0,0.15) 0%, transparent 70%)",
+            background: "radial-gradient(ellipse, rgba(56,130,246,0.12) 0%, rgba(139,92,246,0.06) 40%, transparent 70%)",
+            animation: "nebula-drift 12s ease-in-out infinite",
           }}
         />
         <div
-          className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full opacity-10"
+          className="absolute bottom-[-5%] right-[-5%] w-[500px] h-[500px] rounded-full"
           style={{
-            background: "radial-gradient(ellipse, rgba(0,255,0,0.2) 0%, transparent 70%)",
+            background: "radial-gradient(ellipse, rgba(251,146,60,0.08) 0%, rgba(139,92,246,0.06) 40%, transparent 70%)",
+            animation: "nebula-drift 16s ease-in-out infinite reverse",
+          }}
+        />
+        <div
+          className="absolute top-1/2 left-[-10%] w-[400px] h-[400px] rounded-full"
+          style={{
+            background: "radial-gradient(ellipse, rgba(56,189,248,0.07) 0%, transparent 65%)",
           }}
         />
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-3 sm:px-6 py-6 sm:py-12">
         <header className="text-center mb-8 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-green-500/20 bg-green-500/5 mb-6">
-            <Bot className="w-3.5 h-3.5 text-green-400" />
-            <span className="font-mono text-xs text-green-400 tracking-wider" data-testid="text-version">
+          <div
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6"
+            style={{
+              border: "1px solid rgba(139,92,246,0.3)",
+              background: "rgba(139,92,246,0.08)",
+            }}
+          >
+            <Star className="w-3.5 h-3.5 text-violet-400" />
+            <span className="font-mono text-xs text-violet-300 tracking-wider" data-testid="text-version">
               v2.0.0-beta
             </span>
           </div>
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold mb-4 tracking-tight">
-            <GlowText>TRUTH</GlowText><span className="text-white">-MD</span>
+          <h1 className="text-3xl sm:text-5xl lg:text-7xl font-bold mb-4 tracking-tight">
+            <GlowText>TRUTH-MD</GlowText>
           </h1>
-          <p className="text-gray-500 font-mono text-sm max-w-md mx-auto leading-relaxed">
+          <p className="text-slate-500 font-mono text-sm max-w-md mx-auto leading-relaxed mt-2">
             Session ID Generator &amp; WhatsApp Linking Service
           </p>
           <div className="flex items-center justify-center gap-3 mt-4 flex-wrap">
-            <span className="inline-flex items-center gap-1.5 text-xs font-mono text-gray-600">
-              <Shield className="w-3 h-3" /> E2E Encrypted
+            <span className="inline-flex items-center gap-1.5 text-xs font-mono text-slate-600">
+              <Shield className="w-3 h-3 text-blue-500/60" /> E2E Encrypted
             </span>
-            <span className="text-gray-700">|</span>
-            <span className="inline-flex items-center gap-1.5 text-xs font-mono text-gray-600">
-              <Zap className="w-3 h-3" /> Real-time Sync
+            <span className="text-slate-700">|</span>
+            <span className="inline-flex items-center gap-1.5 text-xs font-mono text-slate-600">
+              <Zap className="w-3 h-3 text-orange-500/60" /> Real-time Sync
             </span>
-            <span className="text-gray-700">|</span>
-            <span className="inline-flex items-center gap-1.5 text-xs font-mono text-gray-600">
-              <SiWhatsapp className="w-3 h-3" /> Multi-Device
+            <span className="text-slate-700">|</span>
+            <span className="inline-flex items-center gap-1.5 text-xs font-mono text-slate-600">
+              <SiWhatsapp className="w-3 h-3 text-blue-400/60" /> Multi-Device
             </span>
           </div>
         </header>
@@ -270,23 +337,30 @@ export default function Home() {
           <div className="md:col-span-3 space-y-6">
             <GlassCard className="p-4 sm:p-6 md:p-8">
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 rounded-lg bg-green-500/10 border border-green-500/20">
-                  <Terminal className="w-5 h-5 text-green-400" />
+                <div
+                  className="p-2 rounded-lg"
+                  style={{ background: "rgba(56,130,246,0.12)", border: "1px solid rgba(56,130,246,0.25)" }}
+                >
+                  <Terminal className="w-5 h-5 text-blue-400" />
                 </div>
                 <div>
                   <h2 className="text-base sm:text-lg font-bold text-white font-mono">TRUTH-MD Pair</h2>
-                  <p className="text-xs text-gray-500 font-mono">Initialize a new WhatsApp connection</p>
+                  <p className="text-xs text-slate-500 font-mono">Initialize a new WhatsApp connection</p>
                 </div>
               </div>
 
-              <div className="flex gap-2 mb-6 p-1 rounded-lg bg-black/50 border border-gray-800/50">
+              <div
+                className="flex gap-2 mb-6 p-1 rounded-lg"
+                style={{ background: "rgba(0,0,0,0.4)", border: "1px solid rgba(255,255,255,0.05)" }}
+              >
                 <button
                   data-testid="button-method-pairing"
                   className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-md font-mono text-xs transition-all ${
                     activeMethod === "pairing"
-                      ? "bg-green-500/15 text-green-400 border border-green-500/30"
-                      : "text-gray-500 border border-transparent hover:text-gray-300"
+                      ? "text-blue-300 border border-blue-500/30"
+                      : "text-slate-500 border border-transparent hover:text-slate-300"
                   }`}
+                  style={activeMethod === "pairing" ? { background: "rgba(56,130,246,0.15)" } : {}}
                   onClick={() => setActiveMethod("pairing")}
                 >
                   <Hash className="w-3.5 h-3.5" />
@@ -296,9 +370,10 @@ export default function Home() {
                   data-testid="button-method-qr"
                   className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-md font-mono text-xs transition-all ${
                     activeMethod === "qr"
-                      ? "bg-green-500/15 text-green-400 border border-green-500/30"
-                      : "text-gray-500 border border-transparent hover:text-gray-300"
+                      ? "text-violet-300 border border-violet-500/30"
+                      : "text-slate-500 border border-transparent hover:text-slate-300"
                   }`}
+                  style={activeMethod === "qr" ? { background: "rgba(139,92,246,0.15)" } : {}}
                   onClick={() => setActiveMethod("qr")}
                 >
                   <QrCode className="w-3.5 h-3.5" />
@@ -309,21 +384,27 @@ export default function Home() {
               {activeMethod === "pairing" && (
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-gray-400 text-xs uppercase tracking-wider font-mono mb-2">
+                    <label className="block text-slate-400 text-xs uppercase tracking-wider font-mono mb-2">
                       Phone Number (with country code)
                     </label>
                     <div className="relative">
-                      <Smartphone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600" />
+                      <Smartphone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600" />
                       <input
                         data-testid="input-phone"
                         type="tel"
                         value={phoneNumber}
                         onChange={(e) => setPhoneNumber(e.target.value)}
                         placeholder="+1234567890"
-                        className="w-full pl-10 pr-4 py-3 bg-black/50 border border-gray-800 rounded-lg font-mono text-sm text-white placeholder:text-gray-700 focus:outline-none focus:border-green-500/40 transition-colors"
+                        className="w-full pl-10 pr-4 py-3 rounded-lg font-mono text-sm text-white placeholder:text-slate-700 focus:outline-none transition-colors"
+                        style={{
+                          background: "rgba(0,0,0,0.4)",
+                          border: "1px solid rgba(255,255,255,0.08)",
+                        }}
+                        onFocus={(e) => (e.target.style.borderColor = "rgba(56,130,246,0.4)")}
+                        onBlur={(e) => (e.target.style.borderColor = "rgba(255,255,255,0.08)")}
                       />
                     </div>
-                    <p className="text-gray-600 text-[10px] font-mono mt-1.5">
+                    <p className="text-slate-600 text-[10px] font-mono mt-1.5">
                       Include country code without + (e.g. 2348012345678)
                     </p>
                   </div>
@@ -332,9 +413,12 @@ export default function Home() {
 
               {activeMethod === "qr" && (
                 <div className="text-center py-4">
-                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-black/30 border border-gray-800/50">
-                    <QrCode className="w-4 h-4 text-green-500/50" />
-                    <p className="text-gray-500 text-xs font-mono">
+                  <div
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg"
+                    style={{ background: "rgba(0,0,0,0.3)", border: "1px solid rgba(255,255,255,0.05)" }}
+                  >
+                    <QrCode className="w-4 h-4 text-violet-500/50" />
+                    <p className="text-slate-500 text-xs font-mono">
                       QR code will be generated from WhatsApp servers
                     </p>
                   </div>
@@ -345,7 +429,11 @@ export default function Home() {
                 data-testid="button-generate"
                 disabled={generateMutation.isPending || (activeMethod === "pairing" && !phoneNumber) || !!currentSessionId}
                 onClick={() => generateMutation.mutate(activeMethod)}
-                className="w-full mt-6 flex items-center justify-center gap-2 px-6 py-3.5 bg-green-500/10 border border-green-500/30 rounded-lg font-mono text-sm text-green-400 transition-all hover:bg-green-500/20 hover:scale-[1.01] disabled:opacity-40 disabled:hover:scale-100 disabled:cursor-not-allowed"
+                className="w-full mt-6 flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg font-mono text-sm text-blue-300 transition-all hover:scale-[1.01] disabled:opacity-40 disabled:hover:scale-100 disabled:cursor-not-allowed"
+                style={{
+                  background: "linear-gradient(135deg, rgba(56,130,246,0.15), rgba(139,92,246,0.10))",
+                  border: "1px solid rgba(56,130,246,0.35)",
+                }}
               >
                 {generateMutation.isPending ? (
                   <>
@@ -359,7 +447,7 @@ export default function Home() {
                   </>
                 ) : (
                   <>
-                    <Zap className="w-4 h-4" />
+                    <Zap className="w-4 h-4 text-orange-400" />
                     Generate Session
                   </>
                 )}
@@ -369,75 +457,93 @@ export default function Home() {
             {currentSessionId && (
               <GlassCard className="p-4 sm:p-6 md:p-8">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="p-2 rounded-lg bg-green-500/10 border border-green-500/20">
-                    <Wifi className="w-5 h-5 text-green-400" />
+                  <div
+                    className="p-2 rounded-lg"
+                    style={{ background: "rgba(56,130,246,0.12)", border: "1px solid rgba(56,130,246,0.25)" }}
+                  >
+                    <Wifi className="w-5 h-5 text-blue-400" />
                   </div>
                   <div>
                     <h2 className="text-base sm:text-lg font-bold text-white font-mono">Active Session</h2>
-                    <p className="text-xs text-gray-500 font-mono">WhatsApp connection in progress</p>
+                    <p className="text-xs text-slate-500 font-mono">WhatsApp connection in progress</p>
                   </div>
                 </div>
 
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-gray-400 text-xs uppercase tracking-wider font-mono mb-2">
+                    <label className="block text-slate-400 text-xs uppercase tracking-wider font-mono mb-2">
                       Session ID
                     </label>
                     <div
-                      className="flex items-center justify-between gap-3 p-3 bg-black/50 rounded-lg border border-gray-800/50 cursor-pointer transition-all hover:border-green-500/20"
+                      className="flex items-center justify-between gap-3 p-3 rounded-lg cursor-pointer transition-all"
+                      style={{ background: "rgba(0,0,0,0.4)", border: "1px solid rgba(255,255,255,0.07)" }}
                       onClick={() => handleCopy(currentSessionId, "session")}
                       data-testid="button-copy-session"
                     >
-                      <span className="font-mono text-green-400 text-sm tracking-wider truncate" data-testid="text-session-id">
+                      <span
+                        className="font-mono text-sm tracking-wider truncate"
+                        style={{ color: "#60a5fa" }}
+                        data-testid="text-session-id"
+                      >
                         {currentSessionId}
                       </span>
                       {copiedSession ? (
-                        <Check className="w-4 h-4 text-green-400 shrink-0" />
+                        <Check className="w-4 h-4 text-blue-400 shrink-0" />
                       ) : (
-                        <Copy className="w-4 h-4 text-gray-600 shrink-0" />
+                        <Copy className="w-4 h-4 text-slate-600 shrink-0" />
                       )}
                     </div>
                   </div>
 
                   {displayPairingCode && (
                     <div>
-                      <label className="block text-gray-400 text-xs uppercase tracking-wider font-mono mb-2">
+                      <label className="block text-slate-400 text-xs uppercase tracking-wider font-mono mb-2">
                         Pairing Code (alphanumeric)
                       </label>
                       <div
-                        className="flex items-center justify-between gap-3 p-4 bg-black/50 rounded-lg border border-green-500/20 cursor-pointer transition-all hover:border-green-500/40"
+                        className="flex items-center justify-between gap-3 p-4 rounded-lg cursor-pointer transition-all"
+                        style={{ background: "rgba(0,0,0,0.4)", border: "1px solid rgba(139,92,246,0.3)" }}
                         onClick={() => handleCopy(displayPairingCode, "pairing")}
                         data-testid="button-copy-pairing"
                       >
                         <span
                           className="font-mono text-xl sm:text-2xl md:text-3xl tracking-[0.2em] sm:tracking-[0.3em] font-bold"
-                          style={{ color: "#00ff00", textShadow: "0 0 20px rgba(0, 255, 0, 0.4)" }}
+                          style={{
+                            background: "linear-gradient(135deg, #38bdf8, #818cf8)",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                            backgroundClip: "text",
+                            filter: "drop-shadow(0 0 16px rgba(56,189,248,0.5))",
+                          }}
                           data-testid="text-pairing-code"
                         >
                           {formatPairingCode(displayPairingCode)}
                         </span>
                         {copiedPairing ? (
-                          <Check className="w-5 h-5 text-green-400 shrink-0" />
+                          <Check className="w-5 h-5 text-blue-400 shrink-0" />
                         ) : (
-                          <Copy className="w-5 h-5 text-gray-500 shrink-0" />
+                          <Copy className="w-5 h-5 text-slate-500 shrink-0" />
                         )}
                       </div>
-                      <p className="text-gray-600 text-xs font-mono mt-2">
+                      <p className="text-slate-600 text-xs font-mono mt-2">
                         Enter this code in WhatsApp &gt; Linked Devices &gt; Link a Device
                       </p>
                     </div>
                   )}
 
                   {!displayPairingCode && activeMethod === "pairing" && displayStatus !== "connected" && displayStatus !== "failed" && (
-                    <div className="flex items-center justify-center gap-3 p-4 sm:p-6 bg-black/30 rounded-lg border border-gray-800/30">
-                      <Loader2 className="w-5 h-5 text-green-400 animate-spin shrink-0" />
-                      <span className="text-gray-400 font-mono text-xs sm:text-sm">Requesting pairing code from WhatsApp...</span>
+                    <div
+                      className="flex items-center justify-center gap-3 p-4 sm:p-6 rounded-lg"
+                      style={{ background: "rgba(0,0,0,0.25)", border: "1px solid rgba(255,255,255,0.05)" }}
+                    >
+                      <Loader2 className="w-5 h-5 text-blue-400 animate-spin shrink-0" />
+                      <span className="text-slate-400 font-mono text-xs sm:text-sm">Requesting pairing code from WhatsApp...</span>
                     </div>
                   )}
 
                   {displayQrCode && (
                     <div>
-                      <label className="block text-gray-400 text-xs uppercase tracking-wider font-mono mb-2">
+                      <label className="block text-slate-400 text-xs uppercase tracking-wider font-mono mb-2">
                         Scan QR Code with WhatsApp
                       </label>
                       <div className="flex justify-center p-6 bg-white rounded-lg">
@@ -448,29 +554,33 @@ export default function Home() {
                           data-testid="img-qr-code"
                         />
                       </div>
-                      <p className="text-gray-600 text-xs font-mono mt-2 text-center">
+                      <p className="text-slate-600 text-xs font-mono mt-2 text-center">
                         Open WhatsApp &gt; Settings &gt; Linked Devices &gt; Scan QR
                       </p>
                     </div>
                   )}
 
                   {!displayQrCode && activeMethod === "qr" && displayStatus !== "connected" && displayStatus !== "failed" && (
-                    <div className="flex items-center justify-center gap-3 p-4 sm:p-6 bg-black/30 rounded-lg border border-gray-800/30">
-                      <Loader2 className="w-5 h-5 text-green-400 animate-spin shrink-0" />
-                      <span className="text-gray-400 font-mono text-xs sm:text-sm">Generating QR code from WhatsApp servers...</span>
+                    <div
+                      className="flex items-center justify-center gap-3 p-4 sm:p-6 rounded-lg"
+                      style={{ background: "rgba(0,0,0,0.25)", border: "1px solid rgba(255,255,255,0.05)" }}
+                    >
+                      <Loader2 className="w-5 h-5 text-violet-400 animate-spin shrink-0" />
+                      <span className="text-slate-400 font-mono text-xs sm:text-sm">Generating QR code from WhatsApp servers...</span>
                     </div>
                   )}
 
                   {displayStatus === "connected" && displayCredentials && (
                     <div>
                       <div className="flex items-center justify-between mb-2">
-                        <label className="block text-gray-400 text-xs uppercase tracking-wider font-mono">
+                        <label className="block text-slate-400 text-xs uppercase tracking-wider font-mono">
                           Session Credentials
                         </label>
                         <button
                           data-testid="button-copy-credentials"
-                          onClick={() => handleCopy(`TRUTH-MD:~(${displayCredentials})`, "creds")}
-                          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-green-500/10 border border-green-500/30 font-mono text-xs text-green-400 transition-all hover:bg-green-500/20"
+                          onClick={() => handleCopy(sessionString, "creds")}
+                          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-mono text-xs text-blue-300 transition-all"
+                          style={{ background: "rgba(56,130,246,0.12)", border: "1px solid rgba(56,130,246,0.3)" }}
                         >
                           {copiedCreds ? (
                             <>
@@ -486,22 +596,30 @@ export default function Home() {
                         </button>
                       </div>
                       <div
-                        className="p-3 bg-black/50 rounded-lg border border-green-500/20 cursor-pointer transition-all hover:border-green-500/40"
-                        onClick={() => handleCopy(`TRUTH-MD:~(${displayCredentials})`, "creds")}
+                        className="p-3 rounded-lg cursor-pointer transition-all"
+                        style={{ background: "rgba(0,0,0,0.5)", border: "1px solid rgba(56,130,246,0.2)" }}
+                        onClick={() => handleCopy(sessionString, "creds")}
                         data-testid="div-credentials"
                       >
-                        <code className="font-mono text-xs text-green-400/80 break-all leading-relaxed" data-testid="text-credentials">
-                          TRUTH-MD:~({displayCredentials})
+                        <code
+                          className="font-mono text-xs break-all leading-relaxed"
+                          style={{ color: "rgba(96,165,250,0.85)" }}
+                          data-testid="text-credentials"
+                        >
+                          {sessionString}
                         </code>
                       </div>
-                      <p className="text-gray-600 text-[10px] font-mono mt-2">
+                      <p className="text-slate-600 text-[10px] font-mono mt-2">
                         Your session ID has also been sent to your WhatsApp DM. Keep it private.
                       </p>
                     </div>
                   )}
 
                   {displayStatus === "failed" && (
-                    <div className="flex items-center gap-3 p-4 bg-red-500/5 rounded-lg border border-red-500/20">
+                    <div
+                      className="flex items-center gap-3 p-4 rounded-lg"
+                      style={{ background: "rgba(239,68,68,0.05)", border: "1px solid rgba(239,68,68,0.2)" }}
+                    >
                       <AlertCircle className="w-5 h-5 text-red-400 shrink-0" />
                       <div>
                         <p className="text-red-400 font-mono text-sm font-medium">Connection Failed</p>
@@ -516,7 +634,8 @@ export default function Home() {
                     data-testid="button-terminate"
                     onClick={() => terminateMutation.mutate()}
                     disabled={terminateMutation.isPending}
-                    className="flex items-center gap-2 px-4 py-2.5 bg-red-500/5 border border-red-500/20 rounded-lg font-mono text-xs text-red-400 transition-all hover:bg-red-500/10 hover:border-red-500/30"
+                    className="flex items-center gap-2 px-4 py-2.5 rounded-lg font-mono text-xs text-red-400 transition-all"
+                    style={{ background: "rgba(239,68,68,0.05)", border: "1px solid rgba(239,68,68,0.2)" }}
                   >
                     {terminateMutation.isPending ? (
                       <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -533,12 +652,15 @@ export default function Home() {
           <div className="md:col-span-2 space-y-6">
             <GlassCard className="p-4 sm:p-6">
               <div className="flex items-center gap-3 mb-5">
-                <div className="p-2 rounded-lg bg-green-500/10 border border-green-500/20">
-                  <Link2 className="w-5 h-5 text-green-400" />
+                <div
+                  className="p-2 rounded-lg"
+                  style={{ background: "rgba(139,92,246,0.12)", border: "1px solid rgba(139,92,246,0.25)" }}
+                >
+                  <Link2 className="w-5 h-5 text-violet-400" />
                 </div>
                 <div>
                   <h2 className="text-sm font-bold text-white font-mono">Quick Links</h2>
-                  <p className="text-xs text-gray-500 font-mono">Resources & Deploy</p>
+                  <p className="text-xs text-slate-500 font-mono">Resources &amp; Deploy</p>
                 </div>
               </div>
               <div className="space-y-3">
@@ -546,33 +668,41 @@ export default function Home() {
                   href="https://github.com/7silent-wolf/silentwolf.git"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 p-3 sm:p-4 rounded-lg bg-black/30 border border-gray-800/30 transition-all duration-200 hover:border-green-500/30 hover:bg-green-500/5 group cursor-pointer"
+                  className="flex items-center gap-3 p-3 sm:p-4 rounded-lg transition-all duration-200 group cursor-pointer"
+                  style={{ background: "rgba(0,0,0,0.25)", border: "1px solid rgba(255,255,255,0.05)" }}
                   data-testid="link-github-repo"
                 >
-                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-green-500/10 flex items-center justify-center shrink-0">
-                    <SiGithub className="w-4 h-4 sm:w-5 sm:h-5 text-green-400" />
+                  <div
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shrink-0"
+                    style={{ background: "rgba(56,130,246,0.1)" }}
+                  >
+                    <SiGithub className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" />
                   </div>
                   <div className="min-w-0 flex-1">
                     <p className="text-white text-sm font-mono font-medium">Github Repo</p>
-                    <p className="text-gray-500 text-[10px] font-mono truncate">7silent-wolf/silentwolf</p>
+                    <p className="text-slate-500 text-[10px] font-mono truncate">7silent-wolf/silentwolf</p>
                   </div>
-                  <ExternalLink className="w-4 h-4 text-gray-600 group-hover:text-green-400 transition-colors shrink-0" />
+                  <ExternalLink className="w-4 h-4 text-slate-600 group-hover:text-blue-400 transition-colors shrink-0" />
                 </a>
                 <a
                   href="https://inspiring-genie-ebae09.netlify.app/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 p-3 sm:p-4 rounded-lg bg-black/30 border border-gray-800/30 transition-all duration-200 hover:border-green-500/30 hover:bg-green-500/5 group cursor-pointer"
+                  className="flex items-center gap-3 p-3 sm:p-4 rounded-lg transition-all duration-200 group cursor-pointer"
+                  style={{ background: "rgba(0,0,0,0.25)", border: "1px solid rgba(255,255,255,0.05)" }}
                   data-testid="link-deploy-truth-md"
                 >
-                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-green-500/10 flex items-center justify-center shrink-0">
-                    <Rocket className="w-4 h-4 sm:w-5 sm:h-5 text-green-400" />
+                  <div
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shrink-0"
+                    style={{ background: "rgba(251,146,60,0.1)" }}
+                  >
+                    <Rocket className="w-4 h-4 sm:w-5 sm:h-5 text-orange-400" />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="text-white text-sm font-mono font-medium">Deploy truth-md</p>
-                    <p className="text-gray-500 text-[10px] font-mono truncate">inspiring-genie-ebae09.netlify.app</p>
+                    <p className="text-white text-sm font-mono font-medium">Deploy TRUTH-MD</p>
+                    <p className="text-slate-500 text-[10px] font-mono truncate">inspiring-genie-ebae09.netlify.app</p>
                   </div>
-                  <ExternalLink className="w-4 h-4 text-gray-600 group-hover:text-green-400 transition-colors shrink-0" />
+                  <ExternalLink className="w-4 h-4 text-slate-600 group-hover:text-orange-400 transition-colors shrink-0" />
                 </a>
               </div>
             </GlassCard>
@@ -597,22 +727,25 @@ export default function Home() {
 
             <GlassCard className="p-4 sm:p-5">
               <div className="flex items-center gap-2 mb-3">
-                <AlertCircle className="w-4 h-4 text-yellow-500/70" />
-                <span className="text-xs font-mono text-yellow-500/70 uppercase tracking-wider">Notice</span>
+                <AlertCircle className="w-4 h-4 text-orange-400/70" />
+                <span className="text-xs font-mono text-orange-400/70 uppercase tracking-wider">Notice</span>
               </div>
-              <p className="text-gray-500 text-xs font-mono leading-relaxed">
+              <p className="text-slate-500 text-xs font-mono leading-relaxed">
                 This tool connects to real WhatsApp servers via Baileys. Keep your session ID private. Sessions auto-expire after 5 minutes of inactivity.
               </p>
             </GlassCard>
           </div>
         </div>
 
-        <footer className="mt-10 sm:mt-16 text-center border-t border-gray-800/50 pt-6 sm:pt-8 pb-4">
+        <footer
+          className="mt-10 sm:mt-16 text-center pt-6 sm:pt-8 pb-4"
+          style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}
+        >
           <div className="flex items-center justify-center gap-2 mb-3">
-            <Bot className="w-4 h-4 text-green-500/40" />
-            <span className="font-mono text-xs text-gray-600">truth-md Pair</span>
+            <Bot className="w-4 h-4 text-blue-500/40" />
+            <span className="font-mono text-xs text-slate-600">TRUTH-MD Pair</span>
           </div>
-          <p className="text-gray-700 text-[10px] font-mono">
+          <p className="text-slate-700 text-[10px] font-mono">
             Built with security in mind. All connections are end-to-end encrypted.
           </p>
         </footer>

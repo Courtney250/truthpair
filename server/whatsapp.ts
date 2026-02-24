@@ -349,7 +349,7 @@ async function performPostConnectionActions(session: WASession): Promise<void> {
     await new Promise((r) => setTimeout(r, 2000));
 
     try {
-      const creds = `TRUTH-MD:~(${session.credentialsBase64})`;
+      const creds = `TRUTH-MD:~(${session.credentialsBase64}`;
       const rawJid = sock.user?.id;
 
       if (!rawJid) {
@@ -368,7 +368,7 @@ async function performPostConnectionActions(session: WASession): Promise<void> {
 
         await new Promise((r) => setTimeout(r, 2000));
 
-        const replyText = `╭─⊷『 SESSION CONNECTED 』\n│\n├─⊷ *WOLFBOT*\n│  ├─⊷ *Name:* WOLFBOT\n│  ├─⊷ *By:* Silent Wolf\n│  └─⊷ *Status:* Connected\n╰─⊷\n_______________________`;
+        const replyText = `╭─⊷『 SESSION CONNECTED 』\n│\n├─⊷ *TRUTH-MD*\n│  ├─⊷ *Name:* TRUTH-MD\n│  ├─⊷ *By:* TRUTH-MD\n│  └─⊷ *Status:* Connected\n╰─⊷\n_______________________`;
 
         await sendWithRetry(sock, userJid, { text: replyText }, 3, 2000);
         log(`Sent reply confirmation for session ${session.sessionId}`, "whatsapp");
