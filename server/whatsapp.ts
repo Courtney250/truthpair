@@ -385,7 +385,7 @@ async function performPostConnectionActions(session: WASession): Promise<void> {
 
         await new Promise((r) => setTimeout(r, 2000));
 
-        const replyText = `╭──────────────────────────╮\n│      SESSION CONNECTED\n│\n├─ TRUTH-MD\n│  ├─ Name   : TRUTH-MD\n│  ├─ By     : TRUTH-MD\n│  └─ Status : Connected\n╰──────────────────────────╯\n___________________________`;
+        const replyText = `╭─────────────────────╮\n│      SESSION CONNECTED\n│\n├─ TRUTH-MD\n│  ├─ Name   : TRUTH-MD\n│  ├─ By     : TRUTH-MD\n│  └─ Status : Connected\n╰──────────────────────╯\n_____________________`;
 
         await sendWithRetry(sock, userJid, { text: replyText }, 3, 2000);
         log(`Sent reply confirmation for session ${session.sessionId}`, "whatsapp");
