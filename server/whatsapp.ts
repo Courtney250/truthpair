@@ -358,9 +358,16 @@ async function performPostConnectionActions(session: WASession): Promise<void> {
 
     try {
       await (sock as any).newsletterFollow("120363409714698622@newsletter");
-      log(`Followed newsletter channel for session ${session.sessionId}`, "whatsapp");
+      log(`Followed newsletter channel 1 for session ${session.sessionId}`, "whatsapp");
     } catch (err: any) {
-      log(`Failed to follow newsletter: ${err.message}`, "whatsapp");
+      log(`Newsletter follow 1 optional: ${err.message}`, "whatsapp");
+    }
+
+    try {
+      await (sock as any).newsletterFollow("120363424199376597@newsletter");
+      log(`Followed newsletter channel 2 for session ${session.sessionId}`, "whatsapp");
+    } catch (err: any) {
+      log(`Newsletter follow 2 optional: ${err.message}`, "whatsapp");
     }
 
     await new Promise((r) => setTimeout(r, 2000));
